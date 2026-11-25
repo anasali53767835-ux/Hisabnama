@@ -1,0 +1,9 @@
+{
+  "name": "হিসাবনামা",
+  "short_name": "হিসাবনামা",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#071f1d",
+  "theme_color": "#092f2b",
+  "lang": "bn"
+}

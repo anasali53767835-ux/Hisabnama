@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<meta name="theme-color" content="#092f2b"><title>হিসাবনামা</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{--bg:#071f1d;--panel:#103a35;--panel2:#164840;--gold:#e6c77a;--mint:#76d6b0;--text:#f4f1e8;--muted:#b5c9c0;--red:#ff8e83;--line:#2b5a51}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 80% 0,#174b40 0,#071f1d 45%);color:var(--text);font-family:system-ui,-apple-system,"Noto Sans Bengali",sans-serif;padding-bottom:84px}
+header{padding:22px 18px 14px;position:sticky;top:0;background:#092b27ee;backdrop-filter:blur(12px);z-index:5;border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;justify-content:space-between}.brand h1{margin:0;font-size:24px;letter-spacing:.3px;color:var(--gold)}.brand small{color:var(--muted)}
+#month{background:#174840;border:1px solid var(--line);color:white;border-radius:12px;padding:8px}
+.ticker{margin:12px 14px 0;background:#3d3020;border:1px solid #826a39;border-radius:12px;padding:10px;color:#ffe4a1;font-size:13px;overflow:hidden}
+main{padding:14px;max-width:760px;margin:auto}.section{display:none}.section.active{display:block}
+h2{font-size:19px;margin:8px 0 14px;color:var(--gold)}h3{font-size:15px;margin:0 0 10px}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.card,.panel{background:linear-gradient(145deg,#16483f,#0e342f);border:1px solid var(--line);border-radius:17px;padding:14px;box-shadow:0 8px 22px #0002}
+.card span{font-size:12px;color:var(--muted)}.card strong{display:block;font-size:21px;margin-top:7px;color:var(--text)}.card.gold strong{color:var(--gold)}.card.red strong{color:var(--red)}
+.panel{margin-top:13px}.muted{color:var(--muted);font-size:12px}.btn{border:0;border-radius:12px;padding:11px 14px;background:var(--gold);color:#172c25;font-weight:700;font-size:14px}.btn.secondary{background:#20574c;color:#fff;border:1px solid #397365}.btn.danger{background:#5a302e;color:#ffd5ce}.btnrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+form{display:grid;gap:9px}input,select,textarea{width:100%;padding:12px;border:1px solid #35665b;background:#092c28;color:white;border-radius:11px;font:inherit}input::placeholder,textarea::placeholder{color:#8eaaa0}label{font-size:12px;color:var(--muted);display:block;margin-bottom:4px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.item{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--line);align-items:center}.item:last-child{border:0}.item b{font-size:14px}.item small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.amount{color:var(--gold);font-weight:700;white-space:nowrap}.empty{color:var(--muted);font-size:13px;padding:15px 0;text-align:center}
+nav{position:fixed;bottom:0;left:0;right:0;background:#092b27f5;border-top:1px solid var(--line);display:flex;overflow-x:auto;z-index:8;padding:7px 4px calc(7px + env(safe-area-inset-bottom));gap:2px}
+nav button{flex:1;min-width:58px;border:0;background:none;color:#9bb8ad;font-size:10px;padding:5px 2px;border-radius:10px}nav button span{display:block;font-size:19px;margin-bottom:2px}nav button.active{background:#1b5146;color:var(--gold)}
+.notice{font-size:12px;color:var(--muted);line-height:1.6}.pill{font-size:10px;background:#245b4f;color:#c6f1df;padding:4px 8px;border-radius:20px}
+@media(min-width:600px){.cards{grid-template-columns:repeat(4,1fr)}}
+
+.menuBtn{border:1px solid #397365;background:#16483f;color:#f4f1e8;border-radius:12px;padding:8px 12px;font-size:21px;min-width:46px}
+.brand{gap:12px}.brandTitle{flex:1}.quote{margin:12px 0;text-align:center}.arabicQuote{font-family:'Uthman Taha','Amiri',serif;font-size:27px;color:var(--gold);margin-bottom:8px}.donationNumber{font-size:25px;font-weight:800;letter-spacing:2px;color:var(--gold);margin:10px 0}
+.drawerShade{position:fixed;inset:0;background:#0009;z-index:20;display:none}.drawer{position:fixed;z-index:21;top:0;bottom:0;left:0;width:min(82vw,320px);background:#0b302b;border-right:1px solid var(--line);padding:20px 14px;transform:translateX(-105%);transition:transform .22s;overflow:auto}.drawer.open{transform:translateX(0)}.drawerShade.open{display:block}.drawer button{width:100%;text-align:left;border:0;background:#16483f;color:#f4f1e8;padding:13px;border-radius:11px;margin:4px 0;font-size:15px}
+.welcomeShade{position:fixed;inset:0;background:#000b;z-index:30;display:none;align-items:center;justify-content:center;padding:20px}.welcomeCard{background:#103a35;border:1px solid #397365;border-radius:20px;padding:24px;max-width:420px;text-align:center}.welcomeCard h2{color:var(--gold)}
+body.lang-en{font-family:'Times New Roman',serif}body.lang-ar{font-family:'Uthman Taha','Amiri',serif}body.lang-bn{font-family:'Kalpurush','Noto Sans Bengali',sans-serif}
+</style></head>
+<body>
+<header><div class="brand"><button class="menuBtn" onclick="toggleDrawer()">☰</button><div class="brandTitle"><h1>হিসাবনামা</h1><small>তোমার আয়-ব্যয়, ইলম ও আমলের খাতা</small></div><span class="pill">HISABNAMA</span></div><div style="margin-top:12px"><label for="month">হিসাবের মাস</label><input id="month" type="month"></div></header>
+
+<div id="drawerShade" class="drawerShade" onclick="toggleDrawer(false)"></div>
+<aside id="drawer" class="drawer"><h2>হিসাবনামা</h2><p class="notice">প্রধান মেনু</p>
+<button onclick="drawerGo('home')">⌂ হোম / Home</button>
+<button onclick="drawerGo('market')">🛒 বাজার</button>
+<button onclick="drawerGo('salary')">৳ বেতন ও আয়</button>
+<button onclick="drawerGo('debt')">🤝 ঋণ</button>
+<button onclick="drawerGo('payments')">📅 পেমেন্ট</button>
+<button onclick="drawerGo('study')">📚 পড়া ও পড়ানো</button>
+<button onclick="drawerGo('writing')">✍️ অনুবাদ, লেখা ও বই</button>
+<button onclick="drawerGo('backup')">⚙️ সেটিংস ও ব্যাকআপ</button></aside>
+<div id="welcomeShade" class="welcomeShade"><div class="welcomeCard"><h2>আসসালামু আলাইকুম!</h2>
+<p>হিসাবনামায় আপনাকে স্বাগতম। আল্লাহ তাআলা আপনার জীবন বরকতময় করুন, নেক হায়াত দান করুন এবং এই অ্যাপকে আপনার উপকারের মাধ্যম বানান। আমিন।</p>
+<button class="btn" onclick="closeWelcome()">শুরু করি</button></div></div>
+<div class="ticker" id="ticker">📢 এই মাসের আসন্ন পেমেন্ট এখানে দেখাবে</div>
+<main>
+<section id="home" class="section active"><div class="quote panel"><div class="arabicQuote" dir="rtl">حاسبوا قبل أن تحاسبوا</div><b>নিজেদের হিসাব নিজেরাই নাও, তোমাদের হিসাব নেওয়ার আগে।</b><p class="notice">উমর ইবনুল খাত্তাব (রা.)-এর নামে প্রচলিত একটি বাণী/আসার হিসেবে উল্লেখিত; একে রাসুলুল্লাহ ﷺ-এর সহিহ হাদিস বলা হচ্ছে না। সূত্র হিসেবে ইবন আবিদ দুনিয়া, মুহাসাবাতুন নাফস উল্লেখ করা হয়।</p></div><h2>📊 মাসিক ড্যাশবোর্ড</h2><div class="cards">
+<div class="card gold"><span>মোট আয়</span><strong id="income">৳০</strong></div><div class="card red"><span>মোট ব্যয়</span><strong id="expense">৳০</strong></div><div class="card"><span>অবশিষ্ট</span><strong id="balance">৳০</strong></div><div class="card"><span>ঋণ বাকি</span><strong id="debt">৳০</strong></div></div>
+<div class="panel"><h3>এই মাসের সংক্ষিপ্ত হিসাব</h3><div id="summary" class="muted">এখনো কোনো তথ্য যোগ করা হয়নি।</div></div>
+<div class="panel"><h3>দ্রুত যোগ করুন</h3><div class="btnrow"><button class="btn" onclick="go('market')">＋ বাজার</button><button class="btn secondary" onclick="go('salary')">＋ বেতন</button><button class="btn secondary" onclick="go('debt')">＋ ঋণ</button></div></div>
+<div class="panel"><h3>আজকের তারিখ</h3><div id="today"></div><div class="muted">হিজরী তারিখ চাইলে প্রতিটি রেকর্ডে নিজে লিখে রাখতে পারবে।</div></div></section>
+<section id="market" class="section"><h2>🛒 দৈনন্দিন বাজার</h2><div class="panel"><form id="marketForm"><div><label>আইটেমের নাম</label><input name="name" required placeholder="যেমন: চাল, ডাল, সবজি"></div><div class="fields"><div><label>টাকা</label><input name="amount" type="number" min="0" step="0.01" required placeholder="০"></div><div><label>ইংরেজি তারিখ</label><input name="date" type="date" required></div></div><div><label>হিজরী তারিখ (ঐচ্ছিক)</label><input name="hijri" placeholder="যেমন: ১০ জমাদিউল আখির ১৪৪৮"></div><div><label>বিবরণ (ঐচ্ছিক)</label><input name="note" placeholder="অতিরিক্ত তথ্য"></div><button class="btn">＋ বাজারের হিসাব যোগ করুন</button></form></div><div class="panel"><h3>বাজারের তালিকা</h3><div id="marketList"></div></div></section>
+<section id="salary" class="section"><h2>💰 বেতন ও আয়</h2><div class="panel"><form id="salaryForm"><div><label>কোথা থেকে পেয়েছ</label><input name="name" placeholder="যেমন: মাসিক বেতন" required></div><div class="fields"><div><label>টাকার পরিমাণ</label><input name="amount" type="number" min="0" required></div><div><label>ইংরেজি তারিখ</label><input name="date" type="date" required></div></div><div><label>হিজরী তারিখ (ঐচ্ছিক)</label><input name="hijri" placeholder="হিজরী তারিখ"></div><button class="btn">＋ আয় যোগ করুন</button></form></div><div class="panel"><h3>আয়ের তালিকা</h3><div id="salaryList"></div></div></section>
+<section id="debt" class="section"><h2>🤝 ঋণ ও ধার</h2><div class="panel"><form id="debtForm"><div class="fields"><div><label>নাম</label><input name="name" required placeholder="কার কাছ থেকে/কাকে"></div><div><label>ধরন</label><select name="kind"><option value="নিয়েছি">আমি নিয়েছি</option><option value="দিয়েছি">আমি ধার দিয়েছি</option></select></div></div><div class="fields"><div><label>মোট টাকা</label><input name="amount" type="number" min="0" required></div><div><label>নেওয়া/দেওয়ার তারিখ</label><input name="date" type="date" required></div></div><div><label>হিজরী তারিখ (ঐচ্ছিক)</label><input name="hijri" placeholder="হিজরী তারিখ"></div><div><label>বিবরণ</label><input name="note" placeholder="কারণ বা শর্ত"></div><button class="btn">＋ ঋণের হিসাব যোগ করুন</button></form></div><div class="panel"><h3>ঋণের তালিকা ও পরিশোধ</h3><div id="debtList"></div></div></section>
+<section id="payments" class="section"><h2>📅 মাসিক দেওয়া-নেওয়া</h2><div class="panel"><form id="paymentForm"><div class="fields"><div><label>কার নাম</label><input name="name" required placeholder="নাম"></div><div><label>ধরন</label><select name="kind"><option value="দিয়েছি">এই মাসে দিয়েছি</option><option value="দিব">দিতে হবে</option></select></div></div><div class="fields"><div><label>টাকা</label><input name="amount" type="number" min="0" required></div><div><label>তারিখ</label><input name="date" type="date" required></div></div><div><label>বিবরণ</label><input name="note" placeholder="কী বাবদ"></div><button class="btn">＋ যোগ করুন</button></form></div><div class="panel"><h3>লেনদেনের তালিকা</h3><div id="paymentList"></div></div></section>
+<section id="study" class="section"><h2>📚 পড়া ও পড়ানো</h2><div class="panel"><form id="studyForm"><div class="fields"><div><label>কিতাবের নাম</label><input name="book" required placeholder="কিতাবের নাম"></div><div><label>কাজ</label><select name="kind"><option value="পড়েছি">আমি পড়েছি</option><option value="পড়িয়েছি">আমি পড়িয়েছি</option></select></div></div><div class="fields"><div><label>পৃষ্ঠা সংখ্যা</label><input name="pages" type="number" min="1" required></div><div><label>তারিখ</label><input name="date" type="date" required></div></div><div><label>হিজরী তারিখ (ঐচ্ছিক)</label><input name="hijri" placeholder="হিজরী তারিখ"></div><button class="btn">＋ দৈনিক অগ্রগতি যোগ করুন</button></form></div><div class="panel"><h3>অধ্যয়ন ও পাঠদানের তালিকা</h3><div id="studyList"></div></div></section>
+<section id="writing" class="section"><h2>✍️ অনুবাদ ও লেখালেখি</h2>
+<div class="panel"><h3>📖 কী কী বই পড়ব? — পাঠতালিকা</h3>
+<form id="bookForm"><div><label>বইয়ের নাম</label><input name="name" required placeholder="বইয়ের নাম লিখুন"></div>
+<div class="fields"><div><label>লেখক</label><input name="author" placeholder="লেখকের নাম"></div>
+<div><label>অবস্থা</label><select name="status"><option>পড়ব</option><option>পড়ছি</option><option>শেষ করেছি</option></select></div></div>
+<div><label>নোট</label><input name="note" placeholder="কেন পড়ব / কোন বিষয়ে"></div>
+<button class="btn">পাঠতালিকায় যোগ করুন</button></form><div id="bookList"></div></div><div class="panel"><form id="writingForm"><div><label>বই/প্রকল্পের নাম</label><input name="book" required placeholder="বইয়ের নাম"></div><div class="fields"><div><label>ধরন</label><select name="kind"><option>অনুবাদ</option><option>মৌলিক লেখা</option></select></div><div><label>তারিখ</label><input name="date" type="date" required></div></div><div class="fields"><div><label>আজ কতটুকু লিখেছ</label><input name="progress" placeholder="যেমন: ৩ পৃষ্ঠা / ৫০০ শব্দ"></div><div><label>মোট অগ্রগতি (ঐচ্ছিক)</label><input name="total" placeholder="যেমন: ২৫ পৃষ্ঠা"></div></div><div><label>নোট</label><input name="note" placeholder="আজকের কাজের বিবরণ"></div><button class="btn">＋ লেখার অগ্রগতি যোগ করুন</button></form></div><div class="panel"><h3>লেখালেখির তালিকা</h3><div id="writingList"></div></div></section>
+<section id="backup" class="section"><h2>⚙️ সেটিংস ও ব্যাকআপ</h2>
+<div class="panel"><h3>ভাষা / Language / اللغة</h3>
+<select id="languageSelect" onchange="setLanguage(this.value)"><option value="bn">বাংলা</option><option value="en">English</option><option value="ar">العربية</option></select>
+<p class="notice">ভাষা নির্বাচনটি ফন্ট ও কিছু প্রধান অংশে প্রয়োগ হয়; সব ফর্মের লেখা এখনও সম্পূর্ণ অনূদিত নয়।</p></div>
+<div class="panel"><h3>নিজের ফন্ট যুক্ত করুন (TTF)</h3>
+<label>বাংলা ফন্ট</label><input type="file" accept=".ttf,font/ttf" onchange="saveFont(event,'bn')">
+<label>English font</label><input type="file" accept=".ttf,font/ttf" onchange="saveFont(event,'en')">
+<label>Arabic font</label><input type="file" accept=".ttf,font/ttf" onchange="saveFont(event,'ar')">
+<p class="notice">ডিফল্ট ফন্ট: বাংলা—Kalpurush, English—Times New Roman, Arabic—Uthman Taha। ফোনে না থাকলে বিকল্প ফন্ট দেখাবে। নিজের TTF ফাইল আপলোড করতে পারবে।</p></div>
+<div class="panel"><h3>🤲 অ্যাপ নির্মাতার জন্য দোয়া</h3><p>আল্লাহ তাআলা এই কাজকে কবুল করুন এবং নির্মাতাকে উত্তম প্রতিদান ও নেক হায়াত দান করুন। আমিন।</p></div>
+<div class="panel"><h3>☕ স্বেচ্ছায় সহযোগিতা</h3><p class="notice">অ্যাপটি ভালো লাগলে ইচ্ছা হলে সহযোগিতা করতে পারেন। এটি সম্পূর্ণ ঐচ্ছিক।</p>
+<p><b>bKash / Rocket / Nagad (Personal)</b></p><div class="donationNumber">01605165641</div>
+<button class="btn secondary" onclick="copyDonation()">নম্বর কপি করুন</button></div><div class="panel"><h3>তথ্য সংরক্ষণ</h3><p class="notice">তোমার তথ্য এই ডিভাইসেই অফলাইনে সেভ হয়। নিয়মিত JSON ব্যাকআপ ডাউনলোড করে নিরাপদে রাখো। নতুন ফোনে একই ফাইল ইমপোর্ট করলে তথ্য ফিরে পাবে।</p><div class="btnrow"><button class="btn" onclick="exportData()">⬇ ব্যাকআপ ডাউনলোড</button><label class="btn secondary" style="display:inline-flex;align-items:center">⬆ ব্যাকআপ ফেরত আনুন<input type="file" accept="application/json" onchange="importData(event)" hidden></label></div></div>
+<div class="panel"><h3>📱 ফোনের মেমোরিতে ব্যাকআপ</h3><p class="notice">তোমার সব হিসাব স্বয়ংক্রিয়ভাবে এই ফোনের অ্যাপ-স্টোরেজে সেভ হয়। আলাদা কোনো ইমেইল বা লগইন লাগবে না। নিরাপত্তার জন্য মাঝে মাঝে ব্যাকআপ ফাইল ফোনের Downloads/Files-এ এক্সপোর্ট করে রাখো।</p><div class="btnrow"><button class="btn" onclick="exportData()">⬇ ফোনে ব্যাকআপ এক্সপোর্ট</button><label class="btn secondary" style="display:inline-flex;align-items:center">⬆ ফাইল থেকে ইমপোর্ট<input type="file" accept="application/json,.json" onchange="importData(event)" hidden></label></div><p class="notice">নতুন ফোনে অ্যাপ খুলে ইমপোর্ট করলে আগের হিসাব ফিরিয়ে আনতে পারবে। ইমপোর্টের সময় পুরোনো তথ্য প্রতিস্থাপন অথবা নতুন তথ্যের সঙ্গে যোগ করার সুযোগ থাকবে।</p></div>
+<div class="panel"><h3>সতর্কতা</h3><p class="notice">ব্রাউজারের ডেটা মুছে ফেললে স্থানীয় হিসাব হারাতে পারে। তাই ব্যাকআপ ফাইল অন্য জায়গায়ও রাখবে।</p><button class="btn danger" onclick="clearAll()">সব তথ্য মুছে ফেলুন</button></div></section>
+</main>
+<nav>
+<button class="active" data-go="home" onclick="go('home')"><span>⌂</span>হোম</button><button data-go="market" onclick="go('market')"><span>🛒</span>বাজার</button><button data-go="salary" onclick="go('salary')"><span>৳</span>বেতন</button><button data-go="debt" onclick="go('debt')"><span>🤝</span>ঋণ</button><button data-go="payments" onclick="go('payments')"><span>📅</span>পেমেন্ট</button><button data-go="study" onclick="go('study')"><span>📚</span>পড়া</button><button data-go="writing" onclick="go('writing')"><span>✍️</span>লেখা</button><button data-go="backup" onclick="go('backup')"><span>⚙</span>আরও</button>
+</nav>
+<script>
+const KEY='hisabnama_v1';let db=JSON.parse(localStorage.getItem(KEY)||'{"market":[],"salary":[],"debt":[],"payments":[],"study":[],"writing":[]}');db.books=db.books||[];
+const $=s=>document.querySelector(s),money=n=>'৳'+Number(n||0).toLocaleString('bn-BD',{maximumFractionDigits:2}),today=()=>new Date().toISOString().slice(0,10),monthNow=()=>$('#month').value;
+function save(){localStorage.setItem(KEY,JSON.stringify(db));render()}
+function go(id){document.querySelectorAll('.section').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.go===id));window.scrollTo(0,0);render()}
+function inMonth(x){return (x.date||'').slice(0,7)===monthNow()}
+function sum(arr){return arr.filter(inMonth).reduce((a,x)=>a+Number(x.amount||0),0)}
+function safe(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function rows(arr,type){let a=arr.filter(inMonth).slice().sort((x,y)=>(y.date||'').localeCompare(x.date||''));if(!a.length)return '<div class="empty">এই মাসে কোনো তথ্য নেই</div>';return a.map(x=>`<div class="item"><div><b>${safe(x.name||x.book||'')}</b><small>${safe(x.date||'')} ${x.hijri?' • '+safe(x.hijri):''} ${x.note?' • '+safe(x.note):''} ${x.kind?' • '+safe(x.kind):''} ${x.pages?' • '+x.pages+' পৃষ্ঠা':''} ${x.progress?' • '+safe(x.progress):''}</small></div><div style="text-align:right"><div class="amount">${x.amount!==undefined?money(x.amount):safe(x.progress||'')}</div><button class="btn danger" style="padding:5px 8px;margin-top:5px;font-size:11px" onclick="del('${type}','${x.id}')">মুছুন</button></div></div>`).join('')}
+function render(){
+let inc=sum(db.salary),market=sum(db.market),paid=sum(db.payments.filter(x=>x.kind==='দিয়েছি')),out=market+paid;
+$('#income').textContent=money(inc);$('#expense').textContent=money(out);$('#balance').textContent=money(inc-out);
+let debt=db.debt.reduce((a,x)=>a+(x.kind==='নিয়েছি'?Math.max(0,Number(x.amount)-Number(x.paid||0)):0),0);$('#debt').textContent=money(debt);
+$('#summary').innerHTML=`বাজার: ${money(market)}<br>এই মাসে অন্যকে দিয়েছ: ${money(paid)}<br>বেতন/আয়: ${money(inc)}<br>পড়ার রেকর্ড: ${db.study.filter(inMonth).length}টি • লেখার রেকর্ড: ${db.writing.filter(inMonth).length}টি`;
+$('#marketList').innerHTML=rows(db.market,'market');$('#salaryList').innerHTML=rows(db.salary,'salary');$('#paymentList').innerHTML=rows(db.payments,'payments');$('#studyList').innerHTML=rows(db.study,'study');$('#writingList').innerHTML=rows(db.writing,'writing');$('#bookList').innerHTML=db.books.length?db.books.map(x=>`<div class="item"><div><b>${safe(x.name)}</b><small>${safe(x.author||'')} • ${safe(x.status||'')} ${x.note?' • '+safe(x.note):''}</small></div><button class="btn danger" style="padding:5px 8px" onclick="del('books','${x.id}')">মুছুন</button></div>`).join(''):'<div class="empty">এখনও কোনো বই যোগ করা হয়নি</div>';
+$('#debtList').innerHTML=db.debt.length?db.debt.map(x=>`<div class="item"><div><b>${safe(x.name)} <span class="pill">${safe(x.kind)}</span></b><small>${safe(x.date)} ${x.hijri?' • '+safe(x.hijri):''} • পরিশোধ: ${money(x.paid||0)} • বাকি: ${money(Math.max(0,x.amount-(x.paid||0)))}</small></div><div><div class="amount">${money(x.amount)}</div><button class="btn secondary" style="padding:5px 8px;margin-top:5px;font-size:11px" onclick="repay('${x.id}')">পরিশোধ</button> <button class="btn danger" style="padding:5px 8px;font-size:11px" onclick="del('debt','${x.id}')">মুছুন</button></div></div>`).join(''):'<div class="empty">কোনো ঋণের হিসাব নেই</div>';
+let due=db.payments.filter(x=>x.kind==='দিব'&&x.date.slice(0,7)===monthNow()).sort((a,b)=>a.date.localeCompare(b.date));$('#ticker').textContent=due.length?'📢 আসন্ন পেমেন্ট: '+due.map(x=>`${x.date} তারিখে ${x.name} — ${money(x.amount)}`).join('  |  '):'📢 এই মাসে নির্ধারিত পেমেন্ট নেই';
+}
+function addForm(id,key,fields){$('#'+id).addEventListener('submit',e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target));f.id=crypto.randomUUID?crypto.randomUUID():String(Date.now());if(f.amount!==undefined)f.amount=Number(f.amount);if(f.pages)f.pages=Number(f.pages);db[key].push(f);save();e.target.reset();e.target.querySelectorAll('input[type=date]').forEach(x=>x.value=today());alert('তথ্য সংরক্ষণ হয়েছে');})}
+addForm('marketForm','market');addForm('salaryForm','salary');addForm('debtForm','debt');addForm('paymentForm','payments');addForm('studyForm','study');addForm('writingForm','writing');$('#bookForm').addEventListener('submit',e=>{e.preventDefault();let f=Object.fromEntries(new FormData(e.target));f.id=String(Date.now());db.books.push(f);save();e.target.reset();});
+function del(k,id){if(confirm('এই তথ্যটি মুছে ফেলবে?')){db[k]=db[k].filter(x=>x.id!==id);save()}}
+function repay(id){let x=db.debt.find(x=>x.id===id);let n=Number(prompt('এবার কত টাকা পরিশোধ করেছ?','0'));if(!Number.isFinite(n)||n<=0)return;x.paid=Math.min(Number(x.amount),Number(x.paid||0)+n);save()}
+function exportData(){let blob=new Blob([JSON.stringify(db,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='hisabnama-backup-'+today()+'.json';a.click();URL.revokeObjectURL(a.href)}
+function importData(e){
+ let f=e.target.files[0];if(!f)return;
+ let r=new FileReader();
+ r.onload=()=>{
+  try{
+   let x=JSON.parse(r.result),keys=['market','salary','debt','payments','study','writing','books'];
+   if(!['market','salary','debt','payments','study','writing'].every(k=>Array.isArray(x[k])))throw Error();if(!Array.isArray(x.books))x.books=[];
+   let replace=confirm('OK চাপলে ব্যাকআপ দিয়ে বর্তমান হিসাব প্রতিস্থাপন হবে। Cancel চাপলে ব্যাকআপের তথ্য বর্তমান হিসাবের সঙ্গে যোগ হবে।');
+   if(replace){db={};keys.forEach(k=>db[k]=x[k]);}
+   else{keys.forEach(k=>db[k]=[...(db[k]||[]),...x[k]]);}
+   save();alert('ব্যাকআপ সফলভাবে ইমপোর্ট হয়েছে');
+  }catch(_){alert('ফাইলটি সঠিক হিসাবনামা ব্যাকআপ নয়');}
+  e.target.value='';
+ };
+ r.readAsText(f);
+}
+function clearAll(){if(confirm('সত্যিই সব হিসাব মুছে ফেলতে চাও? আগে ব্যাকআপ নিয়ে নাও।')){localStorage.removeItem(KEY);location.reload()}}
+
+function toggleDrawer(force){let d=$('#drawer'),s=$('#drawerShade');let open=force===undefined?!d.classList.contains('open'):force;d.classList.toggle('open',open);s.classList.toggle('open',open)}
+function drawerGo(id){toggleDrawer(false);go(id)}
+function closeWelcome(){$('#welcomeShade').style.display='none';localStorage.setItem('hisabnama_welcome_seen','1')}
+function copyDonation(){if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText('01605165641').then(()=>alert('নম্বর কপি হয়েছে')).catch(()=>prompt('নম্বরটি কপি করুন','01605165641'))}else prompt('নম্বরটি কপি করুন','01605165641')}
+function setLanguage(lang){document.body.classList.remove('lang-bn','lang-en','lang-ar');document.body.classList.add('lang-'+lang);localStorage.setItem('hisabnama_language',lang)}
+function saveFont(e,lang){let f=e.target.files&&e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{let req=indexedDB.open('hisabnama_fonts',1);req.onupgradeneeded=()=>req.result.createObjectStore('fonts');req.onsuccess=()=>{let tx=req.result.transaction('fonts','readwrite');tx.objectStore('fonts').put(r.result,lang);tx.oncomplete=()=>{applyFont(lang,r.result);alert('ফন্ট সংরক্ষণ হয়েছে')}}};r.readAsDataURL(f)}
+function applyFont(lang,data){let family=lang==='bn'?'Kalpurush':lang==='ar'?'Uthman Taha':'HisabEnglish';let st=document.createElement('style');st.textContent=`@font-face{font-family:'${family}';src:url('${data}')}body.lang-${lang}{font-family:'${family}',sans-serif}`;document.head.appendChild(st)}
+function loadFonts(){let req=indexedDB.open('hisabnama_fonts',1);req.onupgradeneeded=()=>req.result.createObjectStore('fonts');req.onsuccess=()=>{let os=req.result.transaction('fonts','readonly').objectStore('fonts');['bn','en','ar'].forEach(k=>{let q=os.get(k);q.onsuccess=()=>{if(q.result)applyFont(k,q.result)}})}}
+let sx=0,sy=0;document.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;sy=e.touches[0].clientY},{passive:true});document.addEventListener('touchend',e=>{let dx=e.changedTouches[0].clientX-sx,dy=e.changedTouches[0].clientY-sy;if(Math.abs(dx)>85&&Math.abs(dy)<70){if(sx<35&&dx>0)toggleDrawer(true);else if($('#drawer').classList.contains('open')&&dx<0)toggleDrawer(false)}},{passive:true});
+delete db.email;$('#month').value=today().slice(0,7);setLanguage(localStorage.getItem('hisabnama_language')||'bn');$('#languageSelect').value=localStorage.getItem('hisabnama_language')||'bn';loadFonts();if(!localStorage.getItem('hisabnama_welcome_seen'))$('#welcomeShade').style.display='flex';$('#month').addEventListener('change',render);$('#today').textContent=new Date().toLocaleDateString('bn-BD',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
+document.querySelectorAll('input[type=date]').forEach(x=>x.value=today());render();
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script></body></html>
